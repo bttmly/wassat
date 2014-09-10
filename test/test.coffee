@@ -20,13 +20,13 @@ runMainFnTest = ( prop, value ) ->
     if key isnt prop
       wassat( things[key] ).should.not.equal value
 
-runIsTest = ( shouldBeTrue, method ) ->
+runIsTest = ( prop, method ) ->
 
-  wassat[method]( things[shouldBeTrue] ).should.equal true
+  wassat[method]( things[prop] ).should.equal true
 
-  Object.keys( things ).filter ( thing ) ->
-    if thing isnt shouldBeTrue
-      wassat[method]( things[thing] ).should.equal false
+  Object.keys( things ).filter ( key ) ->
+    if key isnt prop
+      wassat[method]( things[key] ).should.equal false
 
 describe "main function", ->
   it "works for strings", ->
