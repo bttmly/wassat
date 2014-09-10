@@ -27,6 +27,7 @@ Object.keys(types).forEach(function(key) {
   var fnName, type;
   type = types[key];
   fnName = "is" + capitalize(type);
+  fnName = fnName === "isRegexp" ? "isRegExp" : fnName;
   return wassat[fnName] = function(obj) {
     return wassat(obj) === type;
   };

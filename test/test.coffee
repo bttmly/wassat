@@ -4,6 +4,7 @@ require( "chai" ).should()
 things =
   str : "abc"
   num : 123
+  bool : false
   obj : key: "value"
   arr : ["a", 1]
   date : new Date()
@@ -11,33 +12,68 @@ things =
   args : do ->
     arguments
 
-runTest = ( y, n ) ->
+runMainFnTest = ( prop, value ) ->
+
+  wassat( things[prop] ).should.equal value
+
+  Object.keys( things ).forEach ( key ) ->
+    if key isnt prop
+      wassat( things[key] ).should.not.equal value
+
+runIsTest = ( shouldBeTrue, method ) ->
+
+  wassat[method]( things[shouldBeTrue] ).should.equal true
+
+  Object.keys( things ).filter ( thing ) ->
+    if thing isnt shouldBeTrue
+      wassat[method]( things[thing] ).should.equal false
 
 describe "main function", ->
   it "works for strings", ->
-    wassat( str ).should.equal "string"
+    runMainFnTest "str", "string"
 
   it "works for numbers", ->
-    wassat( num ).should.equal "number"
+    runMainFnTest "num", "number"
+
+  it "works for booleans", ->
+    runMainFnTest "bool", "boolean"
 
   it "works for plain objects", ->
-    wassat( obj ).should.equal "object"
+    runMainFnTest "obj", "object"
 
   it "works for arrays", ->
-    wassat( arr ).should.equal "array"
+    runMainFnTest "arr", "array"
 
   it "works for dates", ->
-    wassat( date ).should.equal "date"
+    runMainFnTest "date", "date"
 
   it "works for regexes", ->
-    wassat( regexp ).should.equal "regexp"
+    runMainFnTest "regexp", "regexp"
 
   it "works for arguments", ->
-    wassat( args ).should.equal "arguments"
+    runMainFnTest "args", "arguments"
 
 describe "'is' methods", ->
   it "isString() works", ->
-    wassat.isString( str ).should.equal true
+    runIsTest "str", "isString"
 
   it "isNumber() works", ->
-    wassat.isNumber( num ).should.equal true
+    runIsTest "num", "isNumber"
+
+  it "isBoolean() works", ->
+    runIsTest "bool", "isBoolean"
+
+  it "isObject() works", ->
+    runIsTest "obj", "isObject"
+
+  it "isArray() works", ->
+    runIsTest "arr", "isArray"
+
+  it "isDate() works", ->
+    runIsTest "date", "isDate"
+
+  it "isRegExp() works", ->
+    runIsTest "regexp", "isRegExp"
+
+  it "isArguments() works", ->
+    runIsTest "args", "isArguments"
