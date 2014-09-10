@@ -1,4 +1,4 @@
-wassat = require "./"
+wassat = require "../"
 require( "chai" ).should()
 
 str = "abc"

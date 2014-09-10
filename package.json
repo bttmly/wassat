@@ -12,7 +12,7 @@
     "mocha": "^1.21.4"
   },
   "scripts": {
-    "test": "mocha --compilers coffee:coffee-script/register test.coffee -R spec",
+    "test": "mocha --compilers coffee:coffee-script/register test/test.coffee -R spec",
     "build": "browserify -o ./dist/wassat.js ./src/index.coffee",
     "compile": "coffee -cb -o ./ ./src/index.coffee"
   },
