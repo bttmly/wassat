@@ -1,14 +1,17 @@
 wassat = require "../"
 require( "chai" ).should()
 
-str = "abc"
-num = 123
-obj = key: "value"
-arr = ["a", 1]
-date = new Date()
-regexp = new RegExp()
-args = do ->
-  arguments
+things =
+  str : "abc"
+  num : 123
+  obj : key: "value"
+  arr : ["a", 1]
+  date : new Date()
+  regexp : new RegExp()
+  args : do ->
+    arguments
+
+runTest = ( y, n ) ->
 
 describe "main function", ->
   it "works for strings", ->
@@ -33,3 +36,8 @@ describe "main function", ->
     wassat( args ).should.equal "arguments"
 
 describe "'is' methods", ->
+  it "isString() works", ->
+    wassat.isString( str ).should.equal true
+
+  it "isNumber() works", ->
+    wassat.isNumber( num ).should.equal true
