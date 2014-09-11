@@ -7,6 +7,7 @@ things =
   bool : false
   obj : key: "value"
   arr : ["a", 1]
+  func: ->
   date : new Date()
   regexp : new RegExp()
   args : do ->
@@ -44,6 +45,9 @@ describe "main function", ->
   it "works for arrays", ->
     runMainFnTest "arr", "array"
 
+  it "works for functions", ->
+    runMainFnTest "func", "function"
+
   it "works for dates", ->
     runMainFnTest "date", "date"
 
@@ -68,6 +72,9 @@ describe "'is' methods", ->
 
   it "isArray() works", ->
     runIsTest "arr", "isArray"
+
+  it "isFunction() works", ->
+    runIsTest "func", "isFunction"
 
   it "isDate() works", ->
     runIsTest "date", "isDate"

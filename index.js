@@ -13,14 +13,14 @@ types = {
   "[object Boolean]": "boolean",
   "[object Object]": "object",
   "[object Array]": "array",
+  "[object Function]": "function",
   "[object RegExp]": "regexp",
   "[object Date]": "date",
   "[object Arguments]": "arguments"
 };
 
 wassat = function(obj) {
-  var type;
-  return type = types[toString.call(obj)];
+  return types[toString.call(obj)];
 };
 
 Object.keys(types).forEach(function(key) {

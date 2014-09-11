@@ -2,40 +2,44 @@
 _(What's that?)_
 
 #### `wassat([Object anything]) -> String`
-The main function accepts anything and returns a string. The result is an all-lowercase version of the JavaScript "class" of which the object is an instance. If it's something else (`HTMLElement` for example), it returns `"object"`. Under the hood, `wassat` uses `Object.prototype.toString`.
+The main function accepts anything and returns a string. The result is an all-lowercase version of the basic JavaScript "class" of which the object is an instance. If it's an instance of something else (`HTMLElement` for example), it returns `"object"`. Under the hood, `wassat` uses `Object.prototype.toString`.
 
 - `wassat('abc')` -> `'string'`
 - `wassat(123)` -> `'number'`
 - `wassat(true)` -> `'boolean'`
 - `wassat({})` -> `'object'`
 - `wassat([])` -> `'array'`
+- `wassat(function(){})` -> `'function'`
 - `wassat(new Date())` -> `'date'`
 - `wassat(new RegExp())` -> `'regexp'`
-- `wassat((function(){return arguments})())` -> `arguments`
-- `wassat(document.querySelector('div'))` -> `object`
+- `wassat((function(){return arguments})())` -> `'arguments'`
+- `wassat(document.querySelector('div'))` -> `'object'`
 
 There is a corresponding "is" method for each type, as follows:
 
 #### `wassat.isString([Object anything]) -> Boolean`
-`true` if `wassat(anything) === string`, else `false`
+`true` if `wassat(anything) === 'string'`, else `false`
 
 #### `wassat.isNumber([Object anything]) -> Boolean`
-`true` if `wassat(anything) === number`, else `false`
+`true` if `wassat(anything) === 'number'`, else `false`
 
 #### `wassat.isBoolean([Object anything]) -> Boolean`
-`true` if `wassat(anything) === boolean`, else `false`
+`true` if `wassat(anything) === 'boolean'`, else `false`
 
 #### `wassat.isArray([Object anything]) -> Boolean`
-`true` if `wassat(anything) === array`, else `false`
+`true` if `wassat(anything) === 'array'`, else `false`
 
 #### `wassat.isObject([Object anything]) -> Boolean`
-`true` if `wassat(anything) === object`, else `false`
+`true` if `wassat(anything) === 'object'`, else `false`
+
+#### `wassat.isFunction([Object anything]) -> Boolean`
+`true` if `wassat(anything) === 'function'`, else `false`
 
 #### `wassat.isDate([Object anything]) -> Boolean`
-`true` if `wassat(anything) === date`, else `false`
+`true` if `wassat(anything) === 'date'`, else `false`
 
 #### `wassat.isRegExp([Object anything]) -> Boolean`
-`true` if `wassat(anything) === regexp`, else `false`
+`true` if `wassat(anything) === 'regexp'`, else `false`
 
 #### `wassat.isArguments([Object anything]) -> Boolean`
-`true` if `wassat(anything) === arguments`, else `false`
+`true` if `wassat(anything) === 'arguments'`, else `false`

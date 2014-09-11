@@ -9,12 +9,13 @@ types =
   "[object Boolean]": "boolean"
   "[object Object]": "object"
   "[object Array]": "array"
+  "[object Function]": "function"
   "[object RegExp]": "regexp"
   "[object Date]": "date"
   "[object Arguments]": "arguments"
 
 wassat = ( obj ) ->
-  types[ toString.call obj ] || "object"
+  types[ toString.call obj ]
 
 Object.keys( types ).forEach ( key ) ->
   type = types[key]
