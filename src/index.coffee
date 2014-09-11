@@ -14,7 +14,7 @@ types =
   "[object Arguments]": "arguments"
 
 wassat = ( obj ) ->
-  type = types[ toString.call obj ]
+  types[ toString.call obj ] || "object"
 
 Object.keys( types ).forEach ( key ) ->
   type = types[key]
