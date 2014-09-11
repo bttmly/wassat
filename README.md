@@ -1,7 +1,7 @@
-# wassat
+# wassat [![Build Status](https://travis-ci.org/nickb1080/wassat.svg)](https://travis-ci.org/nickb1080/wassat)
 _(What's that?)_
 
-### `wassat([Object anything]) -> String`
+#### `wassat([Object anything]) -> String`
 The main function accepts anything and returns a string. The result is an all-lowercase version of the JavaScript "class" of which the object is an instance. If it's something else (`HTMLElement` for example), it returns `"object"`. Under the hood, `wassat` uses `Object.prototype.toString`.
 
 - `wassat('abc')` -> `'string'`
@@ -16,26 +16,26 @@ The main function accepts anything and returns a string. The result is an all-lo
 
 There is a corresponding "is" method for each type, as follows:
 
-### wassat.isString([Object anything])
+#### `wassat.isString([Object anything]) -> Boolean`
 `true` if `wassat(anything) === string`, else `false`
 
-### wassat.isNumber([Object anything])
+#### `wassat.isNumber([Object anything]) -> Boolean`
 `true` if `wassat(anything) === number`, else `false`
 
-### wassat.isBoolean([Object anything])
+#### `wassat.isBoolean([Object anything]) -> Boolean`
 `true` if `wassat(anything) === boolean`, else `false`
 
-### wassat.isArray([Object anything])
+#### `wassat.isArray([Object anything]) -> Boolean`
 `true` if `wassat(anything) === array`, else `false`
 
-### wassat.isObject([Object anything])
+#### `wassat.isObject([Object anything]) -> Boolean`
 `true` if `wassat(anything) === object`, else `false`
 
-### wassat.isDate([Object anything])
+#### `wassat.isDate([Object anything]) -> Boolean`
 `true` if `wassat(anything) === date`, else `false`
 
-### wassat.isRegExp([Object anything])
+#### `wassat.isRegExp([Object anything]) -> Boolean`
 `true` if `wassat(anything) === regexp`, else `false`
 
-### wassat.isArguments([Object anything])
+#### `wassat.isArguments([Object anything]) -> Boolean`
 `true` if `wassat(anything) === arguments`, else `false`
