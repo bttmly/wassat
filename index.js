@@ -16,10 +16,18 @@ types = {
   "[object Function]": "function",
   "[object RegExp]": "regexp",
   "[object Date]": "date",
-  "[object Arguments]": "arguments"
+  "[object Arguments]": "arguments",
+  "null": "null",
+  "undefined": "undefined"
 };
 
 wassat = function(obj) {
+  if (obj === void 0) {
+    return "undefined";
+  }
+  if (obj === null) {
+    return "null";
+  }
   return types[toString.call(obj)];
 };
 
@@ -32,5 +40,11 @@ Object.keys(types).forEach(function(key) {
     return wassat(obj) === type;
   };
 });
+
+wassat.isNothing = function(obj) {
+  var result;
+  result = wassat(obj);
+  return result === "null" || result === "undefined";
+};
 
 module.exports = wassat;

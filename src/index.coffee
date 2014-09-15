@@ -13,8 +13,12 @@ types =
   "[object RegExp]": "regexp"
   "[object Date]": "date"
   "[object Arguments]": "arguments"
+  "null": "null"
+  "undefined": "undefined"
 
 wassat = ( obj ) ->
+  return "undefined" if obj is undefined
+  return "null" if obj is null
   types[ toString.call obj ]
 
 Object.keys( types ).forEach ( key ) ->
@@ -23,5 +27,9 @@ Object.keys( types ).forEach ( key ) ->
   fnName = if fnName is "isRegexp" then "isRegExp" else fnName
   wassat[fnName] = ( obj ) ->
     wassat( obj ) is type
+
+wassat.isNothing = ( obj ) ->
+  result = wassat obj
+  result is "null" or result is "undefined"
 
 module.exports = wassat

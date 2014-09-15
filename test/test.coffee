@@ -12,6 +12,8 @@ things =
   regexp : new RegExp()
   args : do ->
     arguments
+  undef: undefined
+  null: null
 
 runMainFnTest = ( prop, value ) ->
 
@@ -57,6 +59,12 @@ describe "main function", ->
   it "works for arguments", ->
     runMainFnTest "args", "arguments"
 
+  it "works for null", ->
+    runMainFnTest "null", "null"
+
+  it "works for undefined", ->
+    runMainFnTest "undef", "undefined"
+
 describe "'is' methods", ->
   it "isString() works", ->
     runIsTest "str", "isString"
@@ -84,3 +92,13 @@ describe "'is' methods", ->
 
   it "isArguments() works", ->
     runIsTest "args", "isArguments"
+
+  it "isNull() works", ->
+    runIsTest "null", "isNull"
+
+  it "isUndefined() works", ->
+    runIsTest "undef", "isUndefined"
+
+  it "isNothing() works", ->
+    wassat.isNothing( null ).should.equal true
+    wassat.isNothing( undefined ).should.equal true
