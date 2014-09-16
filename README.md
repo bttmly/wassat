@@ -2,7 +2,7 @@
 _(What's that?)_
 
 #### `wassat([Object anything]) -> String`
-The main function accepts anything and returns a string. The result is an all-lowercase version of the basic JavaScript "class" of which the object is an instance. If it's an instance of something else (`HTMLElement` for example), it returns `"object"`. Under the hood, `wassat` uses `Object.prototype.toString`.
+The main function accepts anything and returns a string. The result is an all-lowercase version of the basic JavaScript "class" of which the object is an instance. If it's an instance of something else (`HTMLElement` for example), it returns `"object"`. Under the hood, `wassat` uses `Object.prototype.toString`. For `null` and `undefined`, `wassat()` uses strict equality.
 
 - `wassat('abc')` -> `'string'`
 - `wassat(123)` -> `'number'`
@@ -14,6 +14,8 @@ The main function accepts anything and returns a string. The result is an all-lo
 - `wassat(new RegExp())` -> `'regexp'`
 - `wassat((function(){return arguments})())` -> `'arguments'`
 - `wassat(document.querySelector('div'))` -> `'object'`
+- `wassat(null)` -> `'null'`
+- `wassat(undefined)` -> `'undefined'`
 
 There is a corresponding "is" method for each type, as follows:
 
@@ -43,3 +45,14 @@ There is a corresponding "is" method for each type, as follows:
 
 #### `wassat.isArguments([Object anything]) -> Boolean`
 `true` if `wassat(anything) === 'arguments'`, else `false`
+
+#### `wassat.isNull([Object anything]) -> Boolean`
+`true` if `wassat(anything) === 'undefined'`, else `false`
+
+#### `wassat.isUndefined([Object anything]) -> Boolean`
+`true` if `wassat(anything) === 'null'`, else `false`
+
+There is one further method for checking if an object is `null` **or** `undefined`:
+
+#### `wassat.isNothing([Object anything]) -> Boolean`
+`true` if `wassat(anything) === 'null'` **or** `wassat(anything) === 'undefined'`
