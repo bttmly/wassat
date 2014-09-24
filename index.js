@@ -17,14 +17,11 @@ types = {
   "[object RegExp]": "regexp",
   "[object Date]": "date",
   "[object Arguments]": "arguments",
-  "null": "null",
-  "undefined": "undefined"
+  "[object Undefined]": "undefined",
+  "null": "null"
 };
 
 wassat = function(obj) {
-  if (obj === void 0) {
-    return "undefined";
-  }
   if (obj === null) {
     return "null";
   }

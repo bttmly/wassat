@@ -13,11 +13,10 @@ types =
   "[object RegExp]": "regexp"
   "[object Date]": "date"
   "[object Arguments]": "arguments"
+  "[object Undefined]": "undefined"
   "null": "null"
-  "undefined": "undefined"
 
 wassat = ( obj ) ->
-  return "undefined" if obj is undefined
   return "null" if obj is null
   types[ toString.call obj ]
 
