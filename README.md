@@ -50,10 +50,10 @@ _Note: Returns `true` for `NaN`_
 `true` if `wassat(anything) === 'arguments'`, else `false`
 
 #### `wassat.isNull(Object anything) -> Boolean`
-`true` if `wassat(anything) === 'undefined'`, else `false`
+`true` if `wassat(anything) === 'null'`, else `false`
 
 #### `wassat.isUndefined(Object anything) -> Boolean`
-`true` if `wassat(anything) === 'null'`, else `false`
+`true` if `wassat(anything) === 'undefined'`, else `false`
 
 #### `wassat.isNil(Object anything) -> Boolean`
 `true` if `wassat(anything) === 'null'` **or** `wassat(anything) === 'undefined'`
