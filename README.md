@@ -55,7 +55,11 @@ _Note: Returns `true` for `NaN`_
 #### `wassat.isUndefined([Object anything]) -> Boolean`
 `true` if `wassat(anything) === 'null'`, else `false`
 
-There is one further method for checking if an object is `null` **or** `undefined`:
-
 #### `wassat.isNil([Object anything]) -> Boolean`
 `true` if `wassat(anything) === 'null'` **or** `wassat(anything) === 'undefined'`
+
+### `wassat.isIt(Object anything, Function ctor) -> Boolean`
+Uses `instanceof` to check if `ctor`'s prototype is in `anything`'s prototype chain. Performs a little check for primitives so it can handle those too (since `"abc" instanceof String` is `false`). 
+
+### `wassat.isItExactly(Object anything, Function ctor) -> Boolean`
+Compares the prototype of `anything` (via `Object.getPrototypeOf`) to the value of `ctor.prototype` to see if `ctor` is the constructor function of `anything`. Performs a little check for primitives so it can handle those too (since `Object.getPrototypeOf("abc")` throws).
