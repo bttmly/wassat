@@ -1,6 +1,14 @@
 # wassat [![Build Status](https://travis-ci.org/nickb1080/wassat.svg)](https://travis-ci.org/nickb1080/wassat)
 _(What's that?)_
 
+## Installation and Usage
+
+`npm install wassat`
+
+`var wassat = require('wassat');`
+
+## API
+
 #### `wassat(Object anything) -> String`
 The main function accepts anything and returns a string. The result is an all-lowercase version of the basic JavaScript "class" of which the object is an instance. If it's an instance of something else (`HTMLElement` for example), it returns `"object"`. Under the hood, `wassat` uses `Object.prototype.toString`. For `null` and `undefined`, `wassat()` uses strict equality.
 
