@@ -99,6 +99,6 @@ describe "'is' methods", ->
   it "isUndefined() works", ->
     runIsTest "undef", "isUndefined"
 
-  it "isNothing() works", ->
-    wassat.isNothing( null ).should.equal true
-    wassat.isNothing( undefined ).should.equal true
+  it "isNil() works", ->
+    wassat.isNil( null ).should.equal true
+    wassat.isNil( undefined ).should.equal true

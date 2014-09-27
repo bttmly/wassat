@@ -54,5 +54,5 @@ There is a corresponding "is" method for each type, as follows:
 
 There is one further method for checking if an object is `null` **or** `undefined`:
 
-#### `wassat.isNothing([Object anything]) -> Boolean`
+#### `wassat.isNil([Object anything]) -> Boolean`
 `true` if `wassat(anything) === 'null'` **or** `wassat(anything) === 'undefined'`

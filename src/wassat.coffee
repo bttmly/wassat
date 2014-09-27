@@ -27,7 +27,7 @@ Object.keys( types ).forEach ( key ) ->
   wassat[fnName] = ( obj ) ->
     wassat( obj ) is type
 
-wassat.isNothing = ( obj ) ->
+wassat.isNil = ( obj ) ->
   result = wassat obj
   result is "null" or result is "undefined"
 

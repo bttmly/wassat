@@ -2,7 +2,7 @@
   "name": "wassat",
   "version": "0.1.1",
   "description": "what is that?",
-  "main": "index.js",
+  "main": "./dist/wassat.js",
   "repository": "https://github.com/nickb1080/wassat.git",
   "dependencies": {},
   "devDependencies": {
@@ -12,7 +12,7 @@
   },
   "scripts": {
     "test": "npm run compile && mocha --compilers coffee:coffee-script/register test/test.coffee -R spec",
-    "compile": "coffee -cb -o ./ ./src/index.coffee"
+    "compile": "coffee -c -o ./dist ./src/wassat.coffee"
   },
   "author": "Nick Bottomley (github.com/nickb1080)",
   "license": "MIT"
