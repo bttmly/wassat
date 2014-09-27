@@ -1,6 +1,10 @@
 wassat = require "../"
 require( "chai" ).should()
 
+class Mammal
+
+class Human extends Mammal
+
 things =
   str : "abc"
   num : 123
@@ -102,3 +106,24 @@ describe "'is' methods", ->
   it "isNil() works", ->
     wassat.isNil( null ).should.equal true
     wassat.isNil( undefined ).should.equal true
+
+  it "isIt() works for built-in objects & primitives", ->
+    wassat.isIt( "abc", String ).should.equal true
+    wassat.isIt( [], Object ).should.equal true
+    wassat.isIt( [], Array ).should.equal true
+
+  it "isIt() works for user defined classes & subclasses", ->
+    joe = new Human()
+    wassat.isIt( joe, Human ).should.equal true
+    wassat.isIt( joe, Mammal ).should.equal true
+
+  it "isItExactly() works for built-in objects & primitives", ->
+    wassat.isItExactly( "abc", Number ).should.equal false
+    wassat.isItExactly( "abc", String ).should.equal true
+    wassat.isItExactly( [], Object ).should.equal false
+    wassat.isItExactly( [], Array ).should.equal true
+
+  it "isItExactly() works for user defined classes & subclasses", ->
+    jane = new Human()
+    wassat.isItExactly( jane, Human ).should.equal true
+    wassat.isItExactly( jane, Mammal ).should.equal false
