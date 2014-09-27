@@ -6,6 +6,7 @@ The main function accepts anything and returns a string. The result is an all-lo
 
 - `wassat('abc')` -> `'string'`
 - `wassat(123)` -> `'number'`
+- `wassat(NaN)` -> `'number'`
 - `wassat(true)` -> `'boolean'`
 - `wassat({})` -> `'object'`
 - `wassat([])` -> `'array'`
@@ -24,6 +25,7 @@ There is a corresponding "is" method for each type, as follows:
 
 #### `wassat.isNumber([Object anything]) -> Boolean`
 `true` if `wassat(anything) === 'number'`, else `false`
+_Note: Returns `true` for `NaN`_
 
 #### `wassat.isBoolean([Object anything]) -> Boolean`
 `true` if `wassat(anything) === 'boolean'`, else `false`
