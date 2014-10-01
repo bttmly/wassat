@@ -71,6 +71,10 @@
     return getProto(obj) === Ctor.prototype;
   };
 
-  module.exports = wassat;
+  if (typeof exports === "object") {
+    module.exports = wassat;
+  } else {
+    this.wassat = wassat;
+  }
 
 }).call(this);
