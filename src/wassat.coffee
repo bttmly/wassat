@@ -49,7 +49,7 @@ wassat.isItExactly = ( obj, Ctor ) ->
     return Ctor is primitiveConstructors[result]
   getProto( obj ) is Ctor::
 
-if typeof exports is "object"
+if wassat( exports ) is "object"
   module.exports = wassat
 else
-  @wassat = wassat
+  global.wassat = wassat
