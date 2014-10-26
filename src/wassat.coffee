@@ -4,6 +4,12 @@ getProto = Object.getPrototypeOf
 capitalize = ( str ) ->
   str[0].toUpperCase() + str.slice 1
 
+isPrimitive = ( obj ) ->
+  result = wassat obj
+  if result is "string" or result is "number" or result is "boolean"
+    true
+  false
+
 primitiveConstructors =
   "string": String
   "number": Number
@@ -38,14 +44,14 @@ wassat.isNil = ( obj ) ->
   result is "null" or result is "undefined"
 
 wassat.isIt = ( obj, Ctor ) ->
-  result = wassat obj
-  if result is "string" or result is "number" or result is "boolean"
+  if isPrimitive obj
     return Ctor is primitiveConstructors[result]
   obj instanceof Ctor
 
 wassat.isItExactly = ( obj, Ctor ) ->
-  result = wassat obj
-  if result is "string" or result is "number" or result is "boolean"
+  # result = wassat obj
+  # if result is "string" or result is "number" or result is "boolean"
+  if isPrimitive obj
     return Ctor is primitiveConstructors[result]
   getProto( obj ) is Ctor::
 
