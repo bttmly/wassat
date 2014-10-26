@@ -66,8 +66,11 @@ _Note: Returns `true` for `NaN`_
 #### `wassat.isNil(Object anything) -> Boolean`
 `true` if `wassat(anything) === 'null'` **or** `wassat(anything) === 'undefined'`
 
-#### `wassat.isIt(Object anything, Function ctor) -> Boolean`
+#### `wassat.isIt(Function ctor, Object anything) -> Boolean`
 Uses `instanceof` to check if `ctor`'s prototype is in `anything`'s prototype chain. Performs a little check for primitives so it can handle those too (since `"abc" instanceof String` is `false`). 
 
-#### `wassat.isItExactly(Object anything, Function ctor) -> Boolean`
+#### `wassat.isItExactly(Function ctor, Object anything) -> Boolean`
 Compares the prototype of `anything` (via `Object.getPrototypeOf`) to the value of `ctor.prototype` to see if `ctor` is the constructor function of `anything`. Performs a little check for primitives so it can handle those too (since `Object.getPrototypeOf("abc")` throws).
+
+#### `wassat.isAll(String type, Array iterable) -> Boolean`
+For each `item` in `iterable`, returns false if `wassat(item)` isn't `type`. Else `true`.

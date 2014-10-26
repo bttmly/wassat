@@ -108,22 +108,33 @@ describe "'is' methods", ->
     wassat.isNil( undefined ).should.equal true
 
   it "isIt() works for built-in objects & primitives", ->
-    wassat.isIt( "abc", String ).should.equal true
-    wassat.isIt( [], Object ).should.equal true
-    wassat.isIt( [], Array ).should.equal true
+    wassat.isIt( String, "abc" ).should.equal true
+    wassat.isIt( Object, [] ).should.equal true
+    wassat.isIt( Array, [] ).should.equal true
 
   it "isIt() works for user defined classes & subclasses", ->
     joe = new Human()
-    wassat.isIt( joe, Human ).should.equal true
-    wassat.isIt( joe, Mammal ).should.equal true
+    wassat.isIt( Human, joe ).should.equal true
+    wassat.isIt( Mammal, joe ).should.equal true
 
   it "isItExactly() works for built-in objects & primitives", ->
-    wassat.isItExactly( "abc", Number ).should.equal false
-    wassat.isItExactly( "abc", String ).should.equal true
-    wassat.isItExactly( [], Object ).should.equal false
-    wassat.isItExactly( [], Array ).should.equal true
+    wassat.isItExactly( Number, "abc" ).should.equal false
+    wassat.isItExactly( String, "abc" ).should.equal true
+    wassat.isItExactly( Object, [] ).should.equal false
+    wassat.isItExactly( Array, [] ).should.equal true
 
   it "isItExactly() works for user defined classes & subclasses", ->
     jane = new Human()
-    wassat.isItExactly( jane, Human ).should.equal true
-    wassat.isItExactly( jane, Mammal ).should.equal false
+    wassat.isItExactly( Human, jane ).should.equal true
+    wassat.isItExactly( Mammal, jane ).should.equal false
+
+  it "isAll() correctly checks if all members of an iterable are a type", ->
+    str = "abcdefgh"
+    wassat.isAll( "string", str ).should.equal true
+    wassat.isAll( "number", [ 1, 2, 3 ]).should.equal true
+    wassat.isAll( "number", [ 1, "a", 3 ]).should.equal false
+    wassat.isAll( "object", [ {}, {}, {} ]).should.equal true
+    wassat.isAll( "object", [ {}, 1, [] ]).should.equal false
+
+
+

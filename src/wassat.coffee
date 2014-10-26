@@ -5,12 +5,9 @@ capitalize = ( str ) ->
   str[0].toUpperCase() + str.slice 1
 
 isPrimitive = ( obj ) ->
-  result = wassat obj
-  if result is "string" or result is "number" or result is "boolean"
-    true
-  false
+  if primitives[wassat obj] then true else false
 
-primitiveConstructors =
+primitives =
   "string": String
   "number": Number
   "boolean": Boolean
@@ -43,17 +40,21 @@ wassat.isNil = ( obj ) ->
   result = wassat obj
   result is "null" or result is "undefined"
 
-wassat.isIt = ( obj, Ctor ) ->
+wassat.isIt = ( Ctor, obj ) ->
+  type = wassat obj
   if isPrimitive obj
-    return Ctor is primitiveConstructors[result]
+    return Ctor is primitives[type]
   obj instanceof Ctor
 
-wassat.isItExactly = ( obj, Ctor ) ->
-  # result = wassat obj
-  # if result is "string" or result is "number" or result is "boolean"
+wassat.isItExactly = ( Ctor, obj ) ->
+  type = wassat obj
   if isPrimitive obj
-    return Ctor is primitiveConstructors[result]
+    return Ctor is primitives[type]
   getProto( obj ) is Ctor::
+
+wassat.isAll = ( type, iterable ) ->
+  ( return false if wassat( item ) isnt type ) for item in iterable
+  true
 
 if wassat( exports ) is "object"
   module.exports = wassat
