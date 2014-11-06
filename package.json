@@ -12,7 +12,7 @@
   },
   "scripts": {
     "test": "mocha --compilers coffee:coffee-script/register ./test/ -R spec",
-    "build": "coffee -c -o ./lib ./src/index.coffee",
+    "build": "coffee -cb -o ./lib ./src/index.coffee",
     "prepublish": "npm run build"
   },
   "author": "Nick Bottomley (github.com/nickb1080)",
