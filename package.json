@@ -1,8 +1,8 @@
 {
   "name": "wassat",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "what is that?",
-  "main": "./dist/wassat.js",
+  "main": "index.js",
   "repository": "https://github.com/nickb1080/wassat.git",
   "dependencies": {},
   "devDependencies": {
@@ -12,7 +12,7 @@
   },
   "scripts": {
     "test": "mocha --compilers coffee:coffee-script/register ./test/ -R spec",
-    "build": "coffee -c -o ./lib ./src/wassat.coffee",
+    "build": "coffee -c -o ./lib ./src/index.coffee",
     "prepublish": "npm run build"
   },
   "author": "Nick Bottomley (github.com/nickb1080)",
