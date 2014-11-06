@@ -1,4 +1,4 @@
-wassat = require "../"
+wassat = require "../src/index.coffee"
 require( "chai" ).should()
 
 class Mammal

@@ -11,8 +11,9 @@
     "mocha": "^1.21.4"
   },
   "scripts": {
-    "test": "npm run compile && mocha --compilers coffee:coffee-script/register test/test.coffee -R spec",
-    "compile": "coffee -c -o ./dist ./src/wassat.coffee"
+    "test": "mocha --compilers coffee:coffee-script/register ./test/ -R spec",
+    "build": "coffee -c -o ./lib ./src/wassat.coffee",
+    "prepublish": "npm run build"
   },
   "author": "Nick Bottomley (github.com/nickb1080)",
   "license": "MIT"
