@@ -26,6 +26,8 @@ The main function accepts anything and returns a string. The result is an all-lo
 - `wassat(null)` -> `'null'`
 - `wassat(undefined)` -> `'undefined'`
 
+### .is methods
+
 There is a corresponding "is" method for each type, as follows:
 
 #### `wassat.isString([Object anything]) -> Boolean`
@@ -62,6 +64,8 @@ _Note: Returns `true` for `NaN`_
 
 #### `wassat.isUndefined(Object anything) -> Boolean`
 `true` if `wassat(anything) === 'undefined'`, else `false`
+
+### Other Methods
 
 #### `wassat.isNil(Object anything) -> Boolean`
 `true` if `wassat(anything) === 'null'` **or** `wassat(anything) === 'undefined'`
