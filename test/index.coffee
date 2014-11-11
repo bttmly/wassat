@@ -1,5 +1,13 @@
+<<<<<<< HEAD:test/index.coffee
 wassat = require "../src/index.coffee"
 require( "chai" ).should()
+=======
+wassat = require "../"
+chai = require "chai"
+
+chai.should()
+
+>>>>>>> types map:test/test.coffee
 
 class Mammal
 
@@ -125,6 +133,7 @@ describe "'is' methods", ->
 
   it "isItExactly() works for user defined classes & subclasses", ->
     jane = new Human()
+<<<<<<< HEAD:test/index.coffee
     wassat.isItExactly( Human, jane ).should.equal true
     wassat.isItExactly( Mammal, jane ).should.equal false
 
@@ -138,3 +147,24 @@ describe "'is' methods", ->
 
 
 
+=======
+    wassat.isItExactly( jane, Human ).should.equal true
+    wassat.isItExactly( jane, Mammal ).should.equal false
+
+describe "types property", ->
+  it "has all the right properties", ->
+    wassat.types.string.should.be.ok
+    wassat.types.number.should.be.ok
+    wassat.types.boolean.should.be.ok
+    wassat.types.array.should.be.ok
+    wassat.types.object.should.be.ok
+    wassat.types.function.should.be.ok
+    wassat.types.date.should.be.ok
+    wassat.types.regexp.should.be.ok
+    wassat.types.undefined.should.be.ok
+    wassat.types.null.should.be.ok
+
+  it "doesn't have other random stuff", ->
+    chai.expect(wassat.types.hasOwnProperty).to.not.be.ok
+    chai.expect(wassat.types.constructor).to.not.be.ok
+>>>>>>> types map:test/test.coffee

@@ -23,10 +23,12 @@ types =
   "[object Date]": "date"
   "[object Arguments]": "arguments"
   "[object Undefined]": "undefined"
+  "[object Null]": "null"
 
 wassat = ( obj ) ->
-  return "null" if obj is null
   types[ toString.call obj ]
+
+wassat.types = Object.create null
 
 Object.keys( types ).forEach ( key ) ->
   type = types[key]
@@ -34,6 +36,7 @@ Object.keys( types ).forEach ( key ) ->
   fnName = if fnName is "isRegexp" then "isRegExp" else fnName
   wassat[fnName] = ( obj ) ->
     wassat( obj ) is type
+  wassat.types[type] = 1
 
 wassat.isNull = ( obj ) ->
   wassat( obj ) is "null"
