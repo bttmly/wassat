@@ -1,11 +1,13 @@
 toString = Object.prototype.toString
-getProto = Object.getPrototypeOf
+
+getProto = (value) ->
+  Object.getPrototypeOf Object value
+
+getCtor = (value) -> 
+  Object(value).constructor
 
 capitalize = ( str ) ->
   str[0].toUpperCase() + str.slice 1
-
-isPrimitive = ( obj ) ->
-  if primitives[wassat obj] then true else false
 
 primitives =
   "string": String
@@ -38,28 +40,21 @@ Object.keys( types ).forEach ( key ) ->
     wassat( obj ) is type
   wassat.types[type] = true
 
-wassat.isNull = ( obj ) ->
-  wassat( obj ) is "null"
+wassat.isPrimitive = ( obj ) ->
+  return Object(obj) isnt obj
 
 wassat.isNil = ( obj ) ->
-  result = wassat obj
-  result is "null" or result is "undefined"
+  return value is null or value is undefined
 
-wassat.isIt = ( Ctor, obj ) ->
-  type = wassat obj
-  if isPrimitive obj
-    return Ctor is primitives[type]
-  obj instanceof Ctor
+wassat.isIt = ( Ctor, value ) ->
+  return Object(value) instanceof Ctor
 
-wassat.isItExactly = ( Ctor, obj ) ->
-  type = wassat obj
-  if isPrimitive obj
-    return Ctor is primitives[type]
-  getProto( obj ) is Ctor::
+wassat.isItExactly = ( Ctor, value ) ->
+  return getProto(value) is Ctor::
 
 wassat.isAll = ( type, iterable ) ->
-  ( return false if wassat( item ) isnt type ) for item in iterable
-  true
+  (return false unless wassat(item) is type) for item in iterable
+  return true
 
 if wassat( exports ) is "object"
   module.exports = wassat

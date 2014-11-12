@@ -21,21 +21,21 @@ things =
   undef: undefined
   null: null
 
-runMainFnTest = ( prop, value ) ->
+runMainFnTest = (prop, value) ->
 
-  wassat( things[prop] ).should.equal value
+  wassat(things[prop]).should.equal value
 
-  Object.keys( things ).forEach ( key ) ->
+  Object.keys(things).forEach (key) ->
     if key isnt prop
-      wassat( things[key] ).should.not.equal value
+      wassat(things[key]).should.not.equal value
 
-runIsTest = ( prop, method ) ->
+runIsTest = (prop, method) ->
 
-  wassat[method]( things[prop] ).should.equal true
+  wassat[method](things[prop]).should.equal true
 
-  Object.keys( things ).filter ( key ) ->
+  Object.keys(things).filter (key) ->
     if key isnt prop
-      wassat[method]( things[key] ).should.equal false
+      wassat[method](things[key]).should.equal false
 
 describe "main function", ->
   it "works for strings", ->
@@ -106,37 +106,39 @@ describe "'is' methods", ->
     runIsTest "undef", "isUndefined"
 
   it "isNil() works", ->
-    wassat.isNil( null ).should.equal true
-    wassat.isNil( undefined ).should.equal true
+    wassat.isNil(null).should.equal true
+    wassat.isNil(undefined).should.equal true
 
   it "isIt() works for built-in objects & primitives", ->
-    wassat.isIt( String, "abc" ).should.equal true
-    wassat.isIt( Object, [] ).should.equal true
-    wassat.isIt( Array, [] ).should.equal true
+    wassat.isIt(String, "abc").should.equal true
+    wassat.isIt(Boolean, true).should.equal true
+    wassat.isIt(Number, 20000).should.equal true
+    wassat.isIt(Object, []).should.equal true
+    wassat.isIt(Array, []).should.equal true
 
   it "isIt() works for user defined classes & subclasses", ->
     joe = new Human()
-    wassat.isIt( Human, joe ).should.equal true
-    wassat.isIt( Mammal, joe ).should.equal true
+    wassat.isIt(Human, joe).should.equal true
+    wassat.isIt(Mammal, joe).should.equal true
 
   it "isItExactly() works for built-in objects & primitives", ->
-    wassat.isItExactly( Number, "abc" ).should.equal false
-    wassat.isItExactly( String, "abc" ).should.equal true
-    wassat.isItExactly( Object, [] ).should.equal false
-    wassat.isItExactly( Array, [] ).should.equal true
+    wassat.isItExactly(Number, "abc").should.equal false
+    wassat.isItExactly(String, "abc").should.equal true
+    wassat.isItExactly(Object, []).should.equal false
+    wassat.isItExactly(Array, []).should.equal true
 
   it "isItExactly() works for user defined classes & subclasses", ->
     jane = new Human()
-    wassat.isItExactly( Human, jane ).should.equal true
-    wassat.isItExactly( Mammal, jane ).should.equal false
+    wassat.isItExactly(Human, jane).should.equal true
+    wassat.isItExactly(Mammal, jane).should.equal false
 
   it "isAll() correctly checks if all members of an iterable are a type", ->
     str = "abcdefgh"
-    wassat.isAll( "string", str ).should.equal true
-    wassat.isAll( "number", [ 1, 2, 3 ]).should.equal true
-    wassat.isAll( "number", [ 1, "a", 3 ]).should.equal false
-    wassat.isAll( "object", [ {}, {}, {} ]).should.equal true
-    wassat.isAll( "object", [ {}, 1, [] ]).should.equal false
+    wassat.isAll("string", str).should.equal true
+    wassat.isAll("number", [ 1, 2, 3 ]).should.equal true
+    wassat.isAll("number", [ 1, "a", 3 ]).should.equal false
+    wassat.isAll("object", [ {}, {}, {} ]).should.equal true
+    wassat.isAll("object", [ {}, 1, [] ]).should.equal false
 
 describe "types property", ->
   it "has all the right properties", ->
