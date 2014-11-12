@@ -9,11 +9,6 @@ getCtor = (value) ->
 capitalize = (str) ->
   str[0].toUpperCase() + str.slice 1
 
-primitives =
-  "string": String
-  "number": Number
-  "boolean": Boolean
-
 types =
   "[object String]": "string"
   "[object Number]": "number"
@@ -36,14 +31,14 @@ Object.keys(types).forEach (key) ->
   type = types[key]
   fnName = "is" + capitalize(type)
   fnName = if fnName is "isRegexp" then "isRegExp" else fnName
-  wassat[fnName] = (obj) ->
-    wassat(obj) is type
+  wassat[fnName] = (value) ->
+    wassat(value) is type
   wassat.types[type] = true
 
-wassat.isPrimitive = (obj) ->
-  return Object(obj) isnt obj
+wassat.isPrimitive = (value) ->
+  return Object(value) isnt value
 
-wassat.isNil = (obj) ->
+wassat.isNil = (value) ->
   return value is null or value is undefined
 
 wassat.isIt = (Ctor, value) ->
