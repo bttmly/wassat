@@ -6,7 +6,7 @@ getProto = (value) ->
 getCtor = (value) -> 
   Object(value).constructor
 
-capitalize = ( str ) ->
+capitalize = (str) ->
   str[0].toUpperCase() + str.slice 1
 
 primitives =
@@ -27,36 +27,36 @@ types =
   "[object Undefined]": "undefined"
   "[object Null]": "null"
 
-wassat = ( obj ) ->
+wassat = (obj) ->
   types[ toString.call obj ]
 
 wassat.types = Object.create null
 
-Object.keys( types ).forEach ( key ) ->
+Object.keys(types).forEach (key) ->
   type = types[key]
-  fnName = "is" + capitalize( type )
+  fnName = "is" + capitalize(type)
   fnName = if fnName is "isRegexp" then "isRegExp" else fnName
-  wassat[fnName] = ( obj ) ->
-    wassat( obj ) is type
+  wassat[fnName] = (obj) ->
+    wassat(obj) is type
   wassat.types[type] = true
 
-wassat.isPrimitive = ( obj ) ->
+wassat.isPrimitive = (obj) ->
   return Object(obj) isnt obj
 
-wassat.isNil = ( obj ) ->
+wassat.isNil = (obj) ->
   return value is null or value is undefined
 
-wassat.isIt = ( Ctor, value ) ->
+wassat.isIt = (Ctor, value) ->
   return Object(value) instanceof Ctor
 
-wassat.isItExactly = ( Ctor, value ) ->
+wassat.isItExactly = (Ctor, value) ->
   return getProto(value) is Ctor::
 
-wassat.isAll = ( type, iterable ) ->
+wassat.isAll = (type, iterable) ->
   (return false unless wassat(item) is type) for item in iterable
   return true
 
-if wassat( exports ) is "object"
+if wassat(exports) is "object"
   module.exports = wassat
 else
   global.wassat = wassat
