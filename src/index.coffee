@@ -36,7 +36,7 @@ Object.keys( types ).forEach ( key ) ->
   fnName = if fnName is "isRegexp" then "isRegExp" else fnName
   wassat[fnName] = ( obj ) ->
     wassat( obj ) is type
-  wassat.types[type] = 1
+  wassat.types[type] = true
 
 wassat.isNull = ( obj ) ->
   wassat( obj ) is "null"

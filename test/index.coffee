@@ -140,16 +140,16 @@ describe "'is' methods", ->
 
 describe "types property", ->
   it "has all the right properties", ->
-    wassat.types.string.should.be.ok
-    wassat.types.number.should.be.ok
-    wassat.types.boolean.should.be.ok
-    wassat.types.array.should.be.ok
-    wassat.types.object.should.be.ok
-    wassat.types.function.should.be.ok
-    wassat.types.date.should.be.ok
-    wassat.types.regexp.should.be.ok
-    wassat.types.undefined.should.be.ok
-    wassat.types.null.should.be.ok
+    wassat.types.string.should.equal true
+    wassat.types.number.should.equal true
+    wassat.types.boolean.should.equal true
+    wassat.types.array.should.equal true
+    wassat.types.object.should.equal true
+    wassat.types.function.should.equal true
+    wassat.types.date.should.equal true
+    wassat.types.regexp.should.equal true
+    wassat.types.undefined.should.equal true
+    wassat.types.null.should.equal true
 
   it "doesn't have other random stuff", ->
     chai.expect(wassat.types.hasOwnProperty).to.not.be.ok
