@@ -15,7 +15,7 @@ things =
   arr : ["a", 1]
   func: ->
   date : new Date()
-  regexp : new RegExp()
+  regExp : new RegExp()
   args : do ->
     arguments
   undef: undefined
@@ -60,7 +60,7 @@ describe "main function", ->
     runMainFnTest "date", "date"
 
   it "works for regexes", ->
-    runMainFnTest "regexp", "regexp"
+    runMainFnTest "regExp", "regExp"
 
   it "works for arguments", ->
     runMainFnTest "args", "arguments"
@@ -94,7 +94,7 @@ describe "'is' methods", ->
     runIsTest "date", "isDate"
 
   it "isRegExp() works", ->
-    runIsTest "regexp", "isRegExp"
+    runIsTest "regExp", "isRegExp"
 
   it "isArguments() works", ->
     runIsTest "args", "isArguments"
@@ -149,7 +149,7 @@ describe "types property", ->
     wassat.types.object.should.equal true
     wassat.types.function.should.equal true
     wassat.types.date.should.equal true
-    wassat.types.regexp.should.equal true
+    wassat.types.regExp.should.equal true
     wassat.types.undefined.should.equal true
     wassat.types.null.should.equal true
 

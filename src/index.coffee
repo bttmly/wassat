@@ -9,28 +9,30 @@ getCtor = (value) ->
 capitalize = (str) ->
   str[0].toUpperCase() + str.slice 1
 
-types =
-  "[object String]": "string"
-  "[object Number]": "number"
-  "[object Boolean]": "boolean"
-  "[object Object]": "object"
-  "[object Array]": "array"
-  "[object Function]": "function"
-  "[object RegExp]": "regexp"
-  "[object Date]": "date"
-  "[object Arguments]": "arguments"
-  "[object Undefined]": "undefined"
-  "[object Null]": "null"
+types = Object.create null
+
+[ "string"
+  "number"
+  "boolean"
+  "object"
+  "array"
+  "function"
+  "regExp"
+  "date"
+  "arguments"
+  "undefined"
+  "null"
+].forEach (key) ->
+  types["[object #{capitalize(key)}]"] = key
 
 wassat = (obj) ->
-  types[ toString.call obj ]
+  types[toString.call obj]
 
 wassat.types = Object.create null
 
 Object.keys(types).forEach (key) ->
   type = types[key]
   fnName = "is" + capitalize(type)
-  fnName = if fnName is "isRegexp" then "isRegExp" else fnName
   wassat[fnName] = (value) ->
     wassat(value) is type
   wassat.types[type] = true
