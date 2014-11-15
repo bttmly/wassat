@@ -10,7 +10,8 @@ getCtor = (value) ->
 capitalize = (str) ->
   str[0].toUpperCase() + str.slice 1
 
-typeNames = [ "string"
+typeNames = [ 
+  "string"
   "number"
   "boolean"
   "object"
