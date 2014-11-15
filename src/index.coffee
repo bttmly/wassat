@@ -41,6 +41,8 @@ Object.keys(typeMap).forEach (key) ->
     wassat(value) is type
   wassat.types[type] = true
 
+Object.freeze wassat.types
+
 wassat.isPrimitive = (value) ->
   return Object(value) isnt value
 
