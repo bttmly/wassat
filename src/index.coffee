@@ -56,7 +56,4 @@ wassat.isAll = (type, iterable) ->
   (return false unless wassat(item) is type) for item in iterable
   return true
 
-if wassat(exports) is "object"
-  module.exports = wassat
-else
-  global.wassat = wassat
+module.exports = wassat
