@@ -1,4 +1,5 @@
-toString = Object.prototype.toString
+toString = (value) ->
+  Object.prototype.toString.call value
 
 getProto = (value) ->
   Object.getPrototypeOf Object value
@@ -9,9 +10,7 @@ getCtor = (value) ->
 capitalize = (str) ->
   str[0].toUpperCase() + str.slice 1
 
-types = Object.create null
-
-[ "string"
+typeNames = [ "string"
   "number"
   "boolean"
   "object"
@@ -22,16 +21,20 @@ types = Object.create null
   "arguments"
   "undefined"
   "null"
-].forEach (key) ->
-  types["[object #{capitalize(key)}]"] = key
+]
 
-wassat = (obj) ->
-  types[toString.call obj]
+typeMap = typeNames.reduce (map, key) ->
+  map["[object #{capitalize(key)}]"] = key
+  map
+, Object.create null 
+
+wassat = (value) ->
+  typeMap[toString value] or "object"
 
 wassat.types = Object.create null
 
-Object.keys(types).forEach (key) ->
-  type = types[key]
+Object.keys(typeMap).forEach (key) ->
+  type = typeMap[key]
   fnName = "is" + capitalize(type)
   wassat[fnName] = (value) ->
     wassat(value) is type
