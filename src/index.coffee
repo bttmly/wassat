@@ -1,14 +1,14 @@
 toString = (value) ->
-  Object.prototype.toString.call value
+  return Object.prototype.toString.call value
 
 getProto = (value) ->
-  Object.getPrototypeOf Object value
+  return Object.getPrototypeOf Object value
 
 getCtor = (value) -> 
-  Object(value).constructor
+  return Object(value).constructor
 
 capitalize = (str) ->
-  str[0].toUpperCase() + str.slice 1
+  return str[0].toUpperCase() + str.slice 1
 
 typeNames = [ 
   "string"
@@ -26,20 +26,20 @@ typeNames = [
 
 typeMap = typeNames.reduce (map, key) ->
   map["[object #{capitalize(key)}]"] = key
-  map
+  return map
 , Object.create null 
 
 wassat = (value) ->
-  typeMap[toString value] or "object"
+  return typeMap[toString value] or "object"
 
 wassat.types = Object.create null
 
 Object.keys(typeMap).forEach (key) ->
   type = typeMap[key]
   fnName = "is" + capitalize(type)
-  wassat[fnName] = (value) ->
-    wassat(value) is type
   wassat.types[type] = true
+  wassat[fnName] = (value) ->
+    return wassat(value) is type
 
 Object.freeze wassat.types
 
