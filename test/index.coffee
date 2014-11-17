@@ -71,6 +71,10 @@ describe "main function", ->
   it "works for undefined", ->
     runMainFnTest "undef", "undefined"
 
+  # https://people.mozilla.org/~jorendorff/es6-draft.html#sec-symbol.tostringtag
+  it "defaults to 'object' when @@toStringTag is some other thing", ->
+    wassat(JSON).should.equal "object"
+
 describe "'is' methods", ->
   it "isString() works", ->
     runIsTest "str", "isString"
