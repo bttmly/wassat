@@ -10,7 +10,7 @@ _(What's that?)_
 ## API
 
 #### `wassat(Object anything) -> String`
-The main function accepts anything and returns a string. The result is an all-lowercase version of the basic JavaScript "class" of which the object is an instance. If it's an instance of something else (`HTMLElement` for example), it returns `"object"`. Under the hood, `wassat` uses `Object.prototype.toString`. For `null` and `undefined`, `wassat()` uses strict equality.
+The main function accepts anything and returns a string. The result is an all-lowercase version of the basic JavaScript "class" of which the object is an instance. If it's an instance of something else (`HTMLElement` for example, or perhaps the `Math` object), it returns `"object"`. Under the hood, `wassat` uses `Object.prototype.toString`. For `null` and `undefined`, `wassat()` uses strict equality.
 
 - `wassat('abc')` -> `'string'`
 - `wassat(123)` -> `'number'`

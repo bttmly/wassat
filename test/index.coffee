@@ -73,6 +73,7 @@ describe "main function", ->
 
   # https://people.mozilla.org/~jorendorff/es6-draft.html#sec-symbol.tostringtag
   it "defaults to 'object' when @@toStringTag is some other thing", ->
+    wassat(Math).should.equal "object"
     wassat(JSON).should.equal "object"
 
 describe "'is' methods", ->
