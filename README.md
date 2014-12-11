@@ -70,6 +70,9 @@ _Note: Returns `true` for `NaN`_
 #### `wassat.isNil(Object anything) -> Boolean`
 `true` if `wassat(anything) === 'null'` **or** `wassat(anything) === 'undefined'`
 
+#### `wassat.isPrimitive(Object anything) -> Boolean`
+`true` if `anything` is of a primitive type (string, number, boolean). Primitive types can't hold properties. Not yet tested with ES6 Symbols. 
+
 #### `wassat.isIt(Function ctor, Object anything) -> Boolean`
 Uses `instanceof` to check if `ctor`'s prototype is in `anything`'s prototype chain. Performs a little check for primitives so it can handle those too (since `"abc" instanceof String` is `false`). 
 
