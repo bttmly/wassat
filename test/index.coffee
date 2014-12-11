@@ -145,6 +145,13 @@ describe "'is' methods", ->
     wassat.isAll("object", [ {}, {}, {} ]).should.equal true
     wassat.isAll("object", [ {}, 1, [] ]).should.equal false
 
+  it "isPrimitive() only returns true for strings, numbers, booleans", ->
+    ["asdf", 12345, true].forEach (val) ->
+      wassat.isPrimitive(val).should.equal true
+    [{}, [], new Date(), Function(), new RegExp()].forEach (val) ->
+      wassat.isPrimitive(val).should.equal false
+
+
 describe "types property", ->
   it "has all the right properties", ->
     wassat.types.string.should.equal true
