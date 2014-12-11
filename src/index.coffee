@@ -44,7 +44,8 @@ Object.keys(typeMap).forEach (key) ->
 Object.freeze wassat.types
 
 wassat.isPrimitive = (value) ->
-  return Object(value) isnt value
+  type = typeof value
+  type is "string" or type is "number" or type is "boolean"
 
 wassat.isNil = (value) ->
   return value is null or value is undefined
