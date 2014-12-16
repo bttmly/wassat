@@ -16,6 +16,7 @@ things =
   func: ->
   date : new Date()
   regExp : new RegExp()
+  err: new Error()
   args : do ->
     arguments
   undef: undefined
@@ -62,6 +63,9 @@ describe "main function", ->
   it "works for regexes", ->
     runMainFnTest "regExp", "regExp"
 
+  it "works for errors", ->
+    runMainFnTest "err", "error"
+
   it "works for arguments", ->
     runMainFnTest "args", "arguments"
 
@@ -100,6 +104,9 @@ describe "'is' methods", ->
 
   it "isRegExp() works", ->
     runIsTest "regExp", "isRegExp"
+
+  it "isError() works", ->
+    runIsTest "err", "isError"
 
   it "isArguments() works", ->
     runIsTest "args", "isArguments"
