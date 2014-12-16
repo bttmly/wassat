@@ -19,6 +19,7 @@ typeNames = [
   "function"
   "regExp"
   "date"
+  "error"
   "arguments"
   "undefined"
   "null"
