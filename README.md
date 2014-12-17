@@ -21,6 +21,7 @@ The main function accepts anything and returns a string. The result is an all-lo
 - `wassat(function(){})` -> `'function'`
 - `wassat(new Date())` -> `'date'`
 - `wassat(new RegExp())` -> `'regexp'`
+- `wassat(new Error())` -> `'error'`
 - `wassat((function(){return arguments})())` -> `'arguments'`
 - `wassat(document.querySelector('div'))` -> `'object'`
 - `wassat(null)` -> `'null'`
@@ -55,6 +56,9 @@ _Note: Returns `true` for `NaN`_
 
 #### `wassat.isRegExp(Object anything) -> Boolean`
 `true` if `wassat(anything) === 'regexp'`, else `false`
+
+#### `wassat.isError(Object anything) -> Boolean`
+`true` if `wassat(anything) === 'error'`, else `false`
 
 #### `wassat.isArguments(Object anything) -> Boolean`
 `true` if `wassat(anything) === 'arguments'`, else `false`

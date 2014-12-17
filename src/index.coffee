@@ -4,9 +4,6 @@ toString = (value) ->
 getProto = (value) ->
   return Object.getPrototypeOf Object value
 
-getCtor = (value) -> 
-  return Object(value).constructor
-
 capitalize = (str) ->
   return str[0].toUpperCase() + str.slice 1
 
