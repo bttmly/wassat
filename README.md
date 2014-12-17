@@ -1,4 +1,4 @@
-# wassat [![Build Status](https://travis-ci.org/nickb1080/wassat.svg)](https://travis-ci.org/nickb1080/wassat)
+# wassat [![Build Status](https://travis-ci.org/nickb1080/wassat.svg)](https://travis-ci.org/nickb1080/wassat) [![codecov.io](https://codecov.io/github/nickb1080/wassat/coverage.svg?branch=master)](https://codecov.io/github/nickb1080/wassat?branch=master)
 _(What's that?)_
 
 ## Installation and Usage
