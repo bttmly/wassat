@@ -15,7 +15,8 @@
   "scripts": {
     "test": "mocha --compilers coffee:coffee-script/register ./test/*.coffee -R spec",
     "build": "coffee -cb -o ./lib ./src/index.coffee && coffee test/make-js-test.coffee",
-    "codecov": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- ./test/*.js -R spec && cat ./coverage/lcov.info | ./node_modules/codecov.io/bin/codecov.io.js --verbose",
+    "cover": "npm run build; istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- ./test/*.js -R spec",
+    "codecov": "npm run cover; ./node_modules/.bin/istanbul cover && cat ./coverage/lcov.info | ./node_modules/codecov.io/bin/codecov.io.js --verbose",
     "prepublish": "npm run build"
   },
   "author": "Nick Bottomley (github.com/nickb1080)",

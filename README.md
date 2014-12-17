@@ -27,7 +27,7 @@ The main function accepts anything and returns a string. The result is an all-lo
 - `wassat(null)` -> `'null'`
 - `wassat(undefined)` -> `'undefined'`
 
-### .is methods
+### `.is` methods
 
 There is a corresponding "is" method for each type, as follows:
 
