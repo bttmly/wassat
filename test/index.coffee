@@ -1,4 +1,4 @@
-wassat = require "../src/index.coffee"
+wassat = require "../src/index"
 chai = require "chai"
 
 chai.should()
