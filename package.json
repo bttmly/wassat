@@ -2,7 +2,7 @@
   "name": "wassat",
   "version": "2.2.2",
   "description": "what is that?",
-  "main": "index.js",
+  "main": "./lib",
   "repository": "https://github.com/nickb1080/wassat.git",
   "dependencies": {},
   "devDependencies": {
