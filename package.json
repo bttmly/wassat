@@ -1,6 +1,6 @@
 {
   "name": "wassat",
-  "version": "2.2.3",
+  "version": "2.3.0",
   "description": "what is that?",
   "main": "./lib",
   "repository": "https://github.com/nickb1080/wassat.git",
