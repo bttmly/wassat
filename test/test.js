@@ -57,9 +57,17 @@
 
   runIsTest = function(prop, method) {
     wassat[method](things[prop]).should.equal(true);
-    return Object.keys(things).filter(function(key) {
+    wassat[method].maybe(things[prop]).should.equal(true);
+    wassat[method].maybe(null).should.equal(true);
+    wassat[method].maybe(void 0).should.equal(true);
+    return Object.keys(things).map(function(key) {
+      var thing;
+      thing = things[key];
       if (key !== prop) {
-        return wassat[method](things[key]).should.equal(false);
+        wassat[method](thing).should.equal(false);
+        if (thing !== null && thing !== void 0) {
+          return wassat[method].maybe(thing).should.equal(false);
+        }
       }
     });
   };
@@ -108,43 +116,43 @@
   });
 
   describe("'is' methods", function() {
-    it("isString() works", function() {
+    it("isString() and isString.maybe() works", function() {
       return runIsTest("str", "isString");
     });
-    it("isNumber() works", function() {
+    it("isNumber() and isNumber.maybe() works", function() {
       return runIsTest("num", "isNumber");
     });
-    it("isBoolean() works", function() {
+    it("isBoolean() and isBoolean.maybe() works", function() {
       return runIsTest("bool", "isBoolean");
     });
-    it("isObject() works", function() {
+    it("isObject() and isObject.maybe() works", function() {
       return runIsTest("obj", "isObject");
     });
-    it("isArray() works", function() {
+    it("isArray() and isArray.maybe() works", function() {
       return runIsTest("arr", "isArray");
     });
-    it("isFunction() works", function() {
+    it("isFunction() and isFunction.maybe() works", function() {
       return runIsTest("func", "isFunction");
     });
-    it("isDate() works", function() {
+    it("isDate() and isDate.maybe() works", function() {
       return runIsTest("date", "isDate");
     });
-    it("isRegExp() works", function() {
+    it("isRegExp() and isRegExp.maybe() works", function() {
       return runIsTest("regExp", "isRegExp");
     });
-    it("isError() works", function() {
+    it("isError() and isError.maybe() works", function() {
       return runIsTest("err", "isError");
     });
-    it("isArguments() works", function() {
+    it("isArguments() and isArguments.maybe() works", function() {
       return runIsTest("args", "isArguments");
     });
-    it("isNull() works", function() {
+    it("isNull() and and isNull.maybe() works", function() {
       return runIsTest("null", "isNull");
     });
-    it("isUndefined() works", function() {
+    it("isUndefined() and isUndefined.maybe() works", function() {
       return runIsTest("undef", "isUndefined");
     });
-    it("isNil() works", function() {
+    it("isNil() and works", function() {
       wassat.isNil(null).should.equal(true);
       return wassat.isNil(void 0).should.equal(true);
     });

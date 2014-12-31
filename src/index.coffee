@@ -38,6 +38,8 @@ Object.keys(typeMap).forEach (key) ->
   wassat.types[type] = true
   wassat[fnName] = (value) ->
     return wassat(value) is type
+  wassat[fnName].maybe = (value) ->
+    return wassat.isNil(value) or wassat(value) is type
 
 Object.freeze wassat.types
 

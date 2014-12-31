@@ -34,9 +34,17 @@ runIsTest = (prop, method) ->
 
   wassat[method](things[prop]).should.equal true
 
-  Object.keys(things).filter (key) ->
+  wassat[method].maybe(things[prop]).should.equal true
+  wassat[method].maybe(null).should.equal true
+  wassat[method].maybe(undefined).should.equal true
+
+  Object.keys(things).map (key) ->
+    thing = things[key]
     if key isnt prop
-      wassat[method](things[key]).should.equal false
+      wassat[method](thing).should.equal false
+
+      if thing isnt null and thing isnt undefined
+        wassat[method].maybe(thing).should.equal false
 
 describe "main function", ->
   it "works for strings", ->
@@ -81,43 +89,43 @@ describe "main function", ->
     wassat(JSON).should.equal "object"
 
 describe "'is' methods", ->
-  it "isString() works", ->
+  it "isString() and isString.maybe() works", ->
     runIsTest "str", "isString"
 
-  it "isNumber() works", ->
+  it "isNumber() and isNumber.maybe() works", ->
     runIsTest "num", "isNumber"
 
-  it "isBoolean() works", ->
+  it "isBoolean() and isBoolean.maybe() works", ->
     runIsTest "bool", "isBoolean"
 
-  it "isObject() works", ->
+  it "isObject() and isObject.maybe() works", ->
     runIsTest "obj", "isObject"
 
-  it "isArray() works", ->
+  it "isArray() and isArray.maybe() works", ->
     runIsTest "arr", "isArray"
 
-  it "isFunction() works", ->
+  it "isFunction() and isFunction.maybe() works", ->
     runIsTest "func", "isFunction"
 
-  it "isDate() works", ->
+  it "isDate() and isDate.maybe() works", ->
     runIsTest "date", "isDate"
 
-  it "isRegExp() works", ->
+  it "isRegExp() and isRegExp.maybe() works", ->
     runIsTest "regExp", "isRegExp"
 
-  it "isError() works", ->
+  it "isError() and isError.maybe() works", ->
     runIsTest "err", "isError"
 
-  it "isArguments() works", ->
+  it "isArguments() and isArguments.maybe() works", ->
     runIsTest "args", "isArguments"
 
-  it "isNull() works", ->
+  it "isNull() and and isNull.maybe() works", ->
     runIsTest "null", "isNull"
 
-  it "isUndefined() works", ->
+  it "isUndefined() and isUndefined.maybe() works", ->
     runIsTest "undef", "isUndefined"
 
-  it "isNil() works", ->
+  it "isNil() and works", ->
     wassat.isNil(null).should.equal true
     wassat.isNil(undefined).should.equal true
 
