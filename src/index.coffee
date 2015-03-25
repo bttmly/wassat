@@ -36,10 +36,16 @@ Object.keys(typeMap).forEach (key) ->
   type = typeMap[key]
   fnName = "is" + capitalize(type)
   wassat.types[type] = true
+
   wassat[fnName] = (value) ->
     return wassat(value) is type
+  
   wassat[fnName].maybe = (value) ->
     return wassat.isNil(value) or wassat(value) is type
+
+  wassat[fnName].assert = (value) ->
+    unless wassat(value) is type
+      throw new TypeError "Expected #{value} to be of type #{type}"
 
 Object.freeze wassat.types
 
@@ -51,6 +57,7 @@ wassat.isNil = (value) ->
   return value is null or value is undefined
 
 wassat.isIt = (Ctor, value) ->
+  if Ctor is Object then return value instanceof Object
   return Object(value) instanceof Ctor
 
 wassat.isItExactly = (Ctor, value) ->

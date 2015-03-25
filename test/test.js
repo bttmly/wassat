@@ -1,11 +1,15 @@
 (function() {
-  var Human, Mammal, chai, runIsTest, runMainFnTest, things, wassat,
+  var Human, Mammal, chai, downcaseFirst, runAssertTest, runIsTest, runMainFnTest, things, wassat,
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   wassat = require("../lib/index.js");
 
   chai = require("chai");
+
+  downcaseFirst = function(str) {
+    return str[0].toLowerCase() + str.slice(1);
+  };
 
   chai.should();
 
@@ -70,6 +74,26 @@
         }
       }
     });
+  };
+
+  runAssertTest = function(prop, method) {
+    var key, thing, _results;
+    (function() {
+      return wassat[prop].assert(things[prop]);
+    }).should["throw"](TypeError);
+    _results = [];
+    for (key in things) {
+      thing = things[key];
+      if (key !== prop) {
+        console.log(key, thing, prop, method);
+        _results.push((function() {
+          return wassat[method].assert(thing);
+        }).should["throw"](new RegExp("to be of type " + (downcaseFirst(method.slice(2))))));
+      } else {
+        _results.push(void 0);
+      }
+    }
+    return _results;
   };
 
   describe("main function", function() {
@@ -163,6 +187,11 @@
       wassat.isIt(Object, []).should.equal(true);
       return wassat.isIt(Array, []).should.equal(true);
     });
+    it("isIt() doesn't give false positives for primitives and Object", function() {
+      wassat.isIt(Object, "abc").should.equal(false);
+      wassat.isIt(Object, true).should.equal(false);
+      return wassat.isIt(Object, 1234).should.equal(false);
+    });
     it("isIt() works for user defined classes & subclasses", function() {
       var joe;
       joe = new Human();
@@ -197,6 +226,45 @@
       return [{}, [], new Date(), Function(), new RegExp()].forEach(function(val) {
         return wassat.isPrimitive(val).should.equal(false);
       });
+    });
+  });
+
+  describe("assert methods", function() {
+    it("isString.assert", function() {
+      return runAssertTest("str", "isString");
+    });
+    it("isNumber.assert", function() {
+      return runAssertTest("num", "isNumber");
+    });
+    it("isBoolean.assert", function() {
+      return runAssertTest("bool", "isBoolean");
+    });
+    it("isObject.assert", function() {
+      return runAssertTest("obj", "isObject");
+    });
+    it("isArray.assert", function() {
+      return runAssertTest("arr", "isArray");
+    });
+    it("isFunction.assert", function() {
+      return runAssertTest("func", "isFunction");
+    });
+    it("isDate.assert", function() {
+      return runAssertTest("date", "isDate");
+    });
+    it("isRegExp.assert", function() {
+      return runAssertTest("regExp", "isRegExp");
+    });
+    it("isError.assert", function() {
+      return runAssertTest("err", "isError");
+    });
+    it("isArguments.assert", function() {
+      return runAssertTest("args", "isArguments");
+    });
+    it("isNull.assert", function() {
+      return runAssertTest("null", "isNull");
+    });
+    return it("isUndefined.assert", function() {
+      return runAssertTest("undef", "isUndefined");
     });
   });
 

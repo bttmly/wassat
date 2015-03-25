@@ -1,6 +1,9 @@
 wassat = require "../src/index"
 chai = require "chai"
 
+downcaseFirst = (str) ->
+  return str[0].toLowerCase() + str.slice 1
+
 chai.should()
 
 class Mammal
@@ -45,6 +48,14 @@ runIsTest = (prop, method) ->
 
       if thing isnt null and thing isnt undefined
         wassat[method].maybe(thing).should.equal false
+
+runAssertTest = (prop, method) ->
+
+  (-> wassat[prop].assert(things[prop])).should.throw(TypeError)
+
+  for key, thing of things
+    if key isnt prop
+      (-> wassat[method].assert(thing)).should.throw(new RegExp("to be of type #{downcaseFirst method.slice(2)}"))
 
 describe "main function", ->
   it "works for strings", ->
@@ -136,6 +147,11 @@ describe "'is' methods", ->
     wassat.isIt(Object, []).should.equal true
     wassat.isIt(Array, []).should.equal true
 
+  it "isIt() doesn't give false positives for primitives and Object", ->
+    wassat.isIt(Object, "abc").should.equal false
+    wassat.isIt(Object, true).should.equal false
+    wassat.isIt(Object, 1234).should.equal false
+
   it "isIt() works for user defined classes & subclasses", ->
     joe = new Human()
     wassat.isIt(Human, joe).should.equal true
@@ -166,6 +182,43 @@ describe "'is' methods", ->
     [{}, [], new Date(), Function(), new RegExp()].forEach (val) ->
       wassat.isPrimitive(val).should.equal false
 
+describe "assert methods", ->
+
+  it "isString.assert", ->
+    runAssertTest "str", "isString"
+
+  it "isNumber.assert", ->
+    runAssertTest "num", "isNumber"
+
+  it "isBoolean.assert", ->
+    runAssertTest "bool", "isBoolean"
+
+  it "isObject.assert", ->
+    runAssertTest "obj", "isObject"
+
+  it "isArray.assert", ->
+    runAssertTest "arr", "isArray"
+
+  it "isFunction.assert", ->
+    runAssertTest "func", "isFunction"
+
+  it "isDate.assert", ->
+    runAssertTest "date", "isDate"
+
+  it "isRegExp.assert", ->
+    runAssertTest "regExp", "isRegExp"
+
+  it "isError.assert", ->
+    runAssertTest "err", "isError"
+
+  it "isArguments.assert", ->
+    runAssertTest "args", "isArguments"
+
+  it "isNull.assert", ->
+    runAssertTest "null", "isNull"
+
+  it "isUndefined.assert", ->
+    runAssertTest "undef", "isUndefined"
 
 describe "types property", ->
   it "has all the right properties", ->
