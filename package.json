@@ -3,7 +3,7 @@
   "version": "2.3.0",
   "description": "what is that?",
   "main": "./lib",
-  "repository": "https://github.com/nickb1080/wassat.git",
+  "repository": "https://github.com/bttmly/wassat.git",
   "dependencies": {},
   "devDependencies": {
     "chai": "^1.9.1",
@@ -19,6 +19,6 @@
     "codecov": "npm run cover; cat ./coverage/lcov.info | ./node_modules/codecov.io/bin/codecov.io.js --verbose",
     "prepublish": "npm run build"
   },
-  "author": "Nick Bottomley (github.com/nickb1080)",
+  "author": "Nick Bottomley (github.com/bttmly)",
   "license": "MIT"
 }

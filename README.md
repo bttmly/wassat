@@ -1,4 +1,4 @@
-# wassat [![Build Status](https://travis-ci.org/nickb1080/wassat.svg)](https://travis-ci.org/nickb1080/wassat) [![codecov.io](https://codecov.io/github/nickb1080/wassat/coverage.svg?branch=master)](https://codecov.io/github/nickb1080/wassat?branch=master)
+# wassat [![Build Status](https://travis-ci.org/bttmly/wassat.svg)](https://travis-ci.org/bttmly/wassat) [![codecov.io](https://codecov.io/github/bttmly/wassat/coverage.svg?branch=master)](https://codecov.io/github/bttmly/wassat?branch=master)
 _(What's that?)_
 
 ## Installation and Usage
@@ -75,10 +75,10 @@ _Note: Returns `true` for `NaN`_
 `true` if `wassat(anything) === 'null'` **or** `wassat(anything) === 'undefined'`
 
 #### `wassat.isPrimitive(Object anything) -> Boolean`
-`true` if `anything` is of a primitive type (string, number, boolean). Primitive types can't hold properties. Not yet tested with ES6 Symbols. 
+`true` if `anything` is of a primitive type (string, number, boolean). Primitive types can't hold properties. Not yet tested with ES6 Symbols.
 
 #### `wassat.isIt(Function ctor, Object anything) -> Boolean`
-Uses `instanceof` to check if `ctor`'s prototype is in `anything`'s prototype chain. Performs a little check for primitives so it can handle those too (since `"abc" instanceof String` is `false`). 
+Uses `instanceof` to check if `ctor`'s prototype is in `anything`'s prototype chain. Performs a little check for primitives so it can handle those too (since `"abc" instanceof String` is `false`).
 
 #### `wassat.isItExactly(Function ctor, Object anything) -> Boolean`
 Compares the prototype of `anything` (via `Object.getPrototypeOf`) to the value of `ctor.prototype` to see if `ctor` is the constructor function of `anything`. Performs a little check for primitives so it can handle those too (since `Object.getPrototypeOf("abc")` throws).
