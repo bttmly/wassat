@@ -7,7 +7,7 @@ getProto = (value) ->
 capitalize = (str) ->
   return str[0].toUpperCase() + str.slice 1
 
-typeNames = [ 
+typeNames = [
   "string"
   "number"
   "boolean"
@@ -25,7 +25,7 @@ typeNames = [
 typeMap = typeNames.reduce (map, key) ->
   map["[object #{capitalize(key)}]"] = key
   return map
-, Object.create null 
+, Object.create null
 
 wassat = (value) ->
   return typeMap[toString value] or "object"
@@ -37,15 +37,15 @@ Object.keys(typeMap).forEach (key) ->
   fnName = "is" + capitalize(type)
   wassat.types[type] = true
 
-  wassat[fnName] = (value) ->
-    return wassat(value) is type
-  
-  wassat[fnName].maybe = (value) ->
-    return wassat.isNil(value) or wassat(value) is type
+  isIt = (value) -> wassat(value) is type
+  maybe = (value) -> wassat.isNil(value) or isIt(value)
+  assert = (value) ->
+    if isIt(value) then return
+    throw new TypeError "Expected #{value} to be of type #{type}"
 
-  wassat[fnName].assert = (value) ->
-    unless wassat(value) is type
-      throw new TypeError "Expected #{value} to be of type #{type}"
+  wassat[fnName] = isIt
+  wassat[fnName].maybe = maybe
+  wassat[fnName].assert = assert
 
 Object.freeze wassat.types
 

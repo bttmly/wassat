@@ -1,7 +1,7 @@
 (function() {
-  var Human, Mammal, chai, downcaseFirst, runAssertTest, runIsTest, runMainFnTest, things, wassat,
-    __hasProp = {}.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+  var Human, Mammal, chai, downcaseFirst, getError, runAssertTest, runIsTest, runMainFnTest, things, wassat,
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
 
   wassat = require("../lib/index.js");
 
@@ -20,8 +20,8 @@
 
   })();
 
-  Human = (function(_super) {
-    __extends(Human, _super);
+  Human = (function(superClass) {
+    extend(Human, superClass);
 
     function Human() {
       return Human.__super__.constructor.apply(this, arguments);
@@ -76,24 +76,50 @@
     });
   };
 
-  runAssertTest = function(prop, method) {
-    var key, thing, _results;
-    (function() {
-      return wassat[prop].assert(things[prop]);
-    }).should["throw"](TypeError);
-    _results = [];
+  getError = function(f) {
+    var err;
+    try {
+      f();
+    } catch (error) {
+      err = error;
+      return err;
+    }
+    throw new Error("Expected error didn't occur");
+  };
+
+  runAssertTest = function(prop, method, ok) {
+    var bool, err, key, message, results, target, thing;
+    if (ok == null) {
+      ok = true;
+    }
+    target = things[prop];
+    bool = wassat[method].maybe(target);
+    if (ok) {
+      wassat[method].assert(target);
+      return;
+    }
+    try {
+      wassat[method].assert(target);
+    } catch (error) {
+      err = error;
+      message = err.message;
+      chai.expect(/^Expected/.test(message)).to.be["true"];
+      chai.expect(/to be of type/.test(message)).to.be["true"];
+      return;
+    }
+    throw new Error("shouldn't reach");
+    results = [];
     for (key in things) {
       thing = things[key];
       if (key !== prop) {
-        console.log(key, thing, prop, method);
-        _results.push((function() {
+        results.push((function() {
           return wassat[method].assert(thing);
         }).should["throw"](new RegExp("to be of type " + (downcaseFirst(method.slice(2))))));
       } else {
-        _results.push(void 0);
+        results.push(void 0);
       }
     }
-    return _results;
+    return results;
   };
 
   describe("main function", function() {
@@ -217,7 +243,8 @@
       wassat.isAll("number", [1, 2, 3]).should.equal(true);
       wassat.isAll("number", [1, "a", 3]).should.equal(false);
       wassat.isAll("object", [{}, {}, {}]).should.equal(true);
-      return wassat.isAll("object", [{}, 1, []]).should.equal(false);
+      wassat.isAll("object", [{}, 1, []]).should.equal(false);
+      return wassat.isAll("object", [0, {}]).should.equal(false);
     });
     return it("isPrimitive() only returns true for strings, numbers, booleans", function() {
       ["asdf", 12345, true].forEach(function(val) {
@@ -231,40 +258,52 @@
 
   describe("assert methods", function() {
     it("isString.assert", function() {
-      return runAssertTest("str", "isString");
+      runAssertTest("str", "isString");
+      return runAssertTest("func", "isString", false);
     });
     it("isNumber.assert", function() {
-      return runAssertTest("num", "isNumber");
+      runAssertTest("num", "isNumber");
+      return runAssertTest("func", "isNumber", false);
     });
     it("isBoolean.assert", function() {
-      return runAssertTest("bool", "isBoolean");
+      runAssertTest("bool", "isBoolean");
+      return runAssertTest("func", "isBoolean", false);
     });
     it("isObject.assert", function() {
-      return runAssertTest("obj", "isObject");
+      runAssertTest("obj", "isObject");
+      return runAssertTest("func", "isObject", false);
     });
     it("isArray.assert", function() {
-      return runAssertTest("arr", "isArray");
+      runAssertTest("arr", "isArray");
+      return runAssertTest("func", "isArray", false);
     });
     it("isFunction.assert", function() {
-      return runAssertTest("func", "isFunction");
+      runAssertTest("func", "isFunction");
+      return runAssertTest("str", "isArray", false);
     });
     it("isDate.assert", function() {
-      return runAssertTest("date", "isDate");
+      runAssertTest("date", "isDate");
+      return runAssertTest("func", "isDate", false);
     });
     it("isRegExp.assert", function() {
-      return runAssertTest("regExp", "isRegExp");
+      runAssertTest("regExp", "isRegExp");
+      return runAssertTest("func", "isRegExp", false);
     });
     it("isError.assert", function() {
-      return runAssertTest("err", "isError");
+      runAssertTest("err", "isError");
+      return runAssertTest("func", "isError", false);
     });
     it("isArguments.assert", function() {
-      return runAssertTest("args", "isArguments");
+      runAssertTest("args", "isArguments");
+      return runAssertTest("func", "isArguments", false);
     });
     it("isNull.assert", function() {
-      return runAssertTest("null", "isNull");
+      runAssertTest("null", "isNull");
+      return runAssertTest("func", "isNull", false);
     });
     return it("isUndefined.assert", function() {
-      return runAssertTest("undef", "isUndefined");
+      runAssertTest("undef", "isUndefined");
+      return runAssertTest("func", "isUndefined", false);
     });
   });
 
@@ -281,9 +320,13 @@
       wassat.types.undefined.should.equal(true);
       return wassat.types["null"].should.equal(true);
     });
-    return it("doesn't have other random stuff", function() {
+    it("doesn't have other random stuff", function() {
       chai.expect(wassat.types.hasOwnProperty).to.not.be.ok;
       return chai.expect(wassat.types.constructor).to.not.be.ok;
+    });
+    return it("is frozen", function() {
+      wassat.types.xyz = 1;
+      return (typeof wassat.types.xyz).should.equal("undefined");
     });
   });
 

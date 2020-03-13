@@ -49,9 +49,30 @@ runIsTest = (prop, method) ->
       if thing isnt null and thing isnt undefined
         wassat[method].maybe(thing).should.equal false
 
-runAssertTest = (prop, method) ->
+getError = (f) ->
+  try
+    do f
+  catch err
+    return err
+  throw new Error("Expected error didn't occur")
 
-  (-> wassat[prop].assert(things[prop])).should.throw(TypeError)
+runAssertTest = (prop, method, ok = true) ->
+  target = things[prop]
+  bool = wassat[method].maybe(target)
+  if ok
+    wassat[method].assert(target)
+    return
+
+  try
+    wassat[method].assert(target)
+  catch err
+    { message } = err
+    chai.expect(/^Expected/.test message).to.be.true
+    chai.expect(/to be of type/.test message).to.be.true
+    return
+  throw new Error("shouldn't reach")
+
+
 
   for key, thing of things
     if key isnt prop
@@ -175,6 +196,7 @@ describe "'is' methods", ->
     wassat.isAll("number", [ 1, "a", 3 ]).should.equal false
     wassat.isAll("object", [ {}, {}, {} ]).should.equal true
     wassat.isAll("object", [ {}, 1, [] ]).should.equal false
+    wassat.isAll("object", [ 0, {} ]).should.equal false
 
   it "isPrimitive() only returns true for strings, numbers, booleans", ->
     ["asdf", 12345, true].forEach (val) ->
@@ -186,39 +208,54 @@ describe "assert methods", ->
 
   it "isString.assert", ->
     runAssertTest "str", "isString"
+    runAssertTest "func", "isString", false
 
   it "isNumber.assert", ->
     runAssertTest "num", "isNumber"
+    runAssertTest "func", "isNumber", false
 
   it "isBoolean.assert", ->
     runAssertTest "bool", "isBoolean"
+    runAssertTest "func", "isBoolean", false
 
   it "isObject.assert", ->
     runAssertTest "obj", "isObject"
+    runAssertTest "func", "isObject", false
 
   it "isArray.assert", ->
     runAssertTest "arr", "isArray"
+    runAssertTest "func", "isArray", false
 
   it "isFunction.assert", ->
     runAssertTest "func", "isFunction"
+    runAssertTest "str", "isArray", false
 
   it "isDate.assert", ->
     runAssertTest "date", "isDate"
+    runAssertTest "func", "isDate", false
 
   it "isRegExp.assert", ->
     runAssertTest "regExp", "isRegExp"
+    runAssertTest "func", "isRegExp", false
 
   it "isError.assert", ->
     runAssertTest "err", "isError"
+    runAssertTest "func", "isError", false
 
   it "isArguments.assert", ->
     runAssertTest "args", "isArguments"
+    runAssertTest "func", "isArguments", false
+
 
   it "isNull.assert", ->
     runAssertTest "null", "isNull"
+    runAssertTest "func", "isNull", false
+
 
   it "isUndefined.assert", ->
     runAssertTest "undef", "isUndefined"
+    runAssertTest "func", "isUndefined", false
+
 
 describe "types property", ->
   it "has all the right properties", ->
@@ -236,3 +273,7 @@ describe "types property", ->
   it "doesn't have other random stuff", ->
     chai.expect(wassat.types.hasOwnProperty).to.not.be.ok
     chai.expect(wassat.types.constructor).to.not.be.ok
+
+  it "is frozen", ->
+    wassat.types.xyz = 1
+    (typeof wassat.types.xyz).should.equal "undefined"
